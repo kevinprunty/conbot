@@ -1,9 +1,14 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix, token } = require('./config.json');
+const { prefix, token, uri } = require('./config.json');
+const Keyv = require ('keyv');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+const keyv = new Keyv(uri);
+keyv.on('error', err => console.error('Keyv connection error:', err));
+
+
 
 for (const file of commandFiles){
     const command = require(`./commands/${file}`);
